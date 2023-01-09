@@ -1,0 +1,23 @@
+version: '3.4'
+
+services:
+  dockeruow:
+    image: ${DOCKER_REGISTRY-}dockeruow
+    build:
+      context: .
+      dockerfile: DockerUOW/Dockerfile
+
+  
+  postgresql-db:
+    image: postgres:latest
+    environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=mypassword
+        - POSTGRES_DB=mydb
+    ports:
+        - "5432:5432"
+    volumes:
+        - postgresql-db-data:/var/lib/postgresql/data
+
+volumes:
+  postgresql-db-data:
